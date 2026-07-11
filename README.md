@@ -2,7 +2,7 @@
 
 A lightweight website for browsing and downloading official Python releases.
 
-![PyLoader Preview](screenshot.png)
+![PyLoader Preview](assets/screenshot.jpg)
 
 ---
 
@@ -17,9 +17,9 @@ https://azikerkinov07-cell.github.io/PyLoader/
 
 - Browse official Python releases from **3.5** to **3.14**
 - Direct links to the official Python download pages
-- Clean and modern dark interface
+- Modern dark interface
 - Responsive design for desktop and mobile devices
-- Fast and lightweight (single HTML file)
+- Fast and lightweight static website
 - No installation required
 
 ---
@@ -44,11 +44,9 @@ https://azikerkinov07-cell.github.io/PyLoader/
 ## 🚀 Usage
 
 1. Open the website.
-2. Select the Python version you want.
+2. Choose a Python version.
 3. Click **Download**.
 4. You will be redirected to the official Python download page.
-
-No installation or configuration is required.
 
 ---
 
@@ -64,10 +62,12 @@ No installation or configuration is required.
 
 ## 📂 Project Structure
 
-```
+```text
 PyLoader/
+├── assets/
+│   └── screenshot.jpg
+├── vscode/
 ├── index.html
-├── screenshot.png
 ├── README.md
 └── LICENSE
 ```
@@ -76,15 +76,13 @@ PyLoader/
 
 ## 📸 Preview
 
-Replace this image with a real screenshot of your website.
-
-![Website Screenshot](screenshot.png)
+![Website Screenshot](assets/screenshot.jpg)
 
 ---
 
-## 🔗 Official Website
+## 🔗 Official Python Website
 
-All download links redirect to the official Python website:
+All download links point to the official Python website:
 
 https://www.python.org/downloads/
 
@@ -94,15 +92,7 @@ https://www.python.org/downloads/
 
 This project is licensed under the **MIT License**.
 
-See the `LICENSE` file for more information.
-
----
-
-## ❤️ Contributing
-
-Contributions, suggestions, and improvements are welcome.
-
-If you find a bug or have an idea for a new feature, feel free to open an issue or submit a pull request.
+See the `LICENSE` file for details.
 
 ---
 
@@ -110,8 +100,6 @@ If you find a bug or have an idea for a new feature, feel free to open an issue 
 
 If you like this project, consider giving it a ⭐ on GitHub.
 
-It helps others discover the project.
-
 ---
 
-Made with ❤️ for the Python community.
+Made with ❤️ by **Azikerkinov07-cell**
