@@ -1,60 +1,117 @@
 # PyLoader
 
-**A simple and beautiful website to download any Python version.**
+A lightweight website for browsing and downloading official Python releases.
 
-![PyLoader](https://via.placeholder.com/800x400/0a0a0a/00ff9d?text=PyLoader)
+![PyLoader Preview](screenshot.png)
 
 ---
 
-### ✨ Features
+## 🌐 Live Demo
 
-- Download **all Python versions** from 3.5 to 3.14.6
-- Clean, modern dark design
-- Direct links to the official Python website
-- Fully responsive (works great on mobile and desktop)
+**Website:**  
+https://azikerkinov07-cell.github.io/PyLoader/
+
+---
+
+## ✨ Features
+
+- Browse official Python releases from **3.5** to **3.14**
+- Direct links to the official Python download pages
+- Clean and modern dark interface
+- Responsive design for desktop and mobile devices
 - Fast and lightweight (single HTML file)
+- No installation required
 
-### 📥 Supported Versions
+---
 
-- Python 3.14.6 (Latest)
-- Python 3.13.4
-- Python 3.12.10
-- Python 3.11.12
-- Python 3.10.16
-- Python 3.9.21
-- Python 3.8.20
-- Python 3.7.17
-- Python 3.6.15
-- Python 3.5.10
+## 📥 Supported Versions
 
-### 🚀 How to Use
+| Version | Status |
+|---------|--------|
+| Python 3.14.6 | ✅ Latest |
+| Python 3.13.4 | ✅ Stable |
+| Python 3.12.10 | ✅ Stable |
+| Python 3.11.12 | ✅ Stable |
+| Python 3.10.16 | ✅ Stable |
+| Python 3.9.21 | ✅ Stable |
+| Python 3.8.20 | ✅ Stable |
+| Python 3.7.17 | ✅ Stable |
+| Python 3.6.15 | ✅ Stable |
+| Python 3.5.10 | ✅ Stable |
 
-1. Download the `index.html` file
-2. Open it in any browser
-3. Done! No installation required
+---
 
-### 🌐 Live Demo
+## 🚀 Usage
 
-You can host it for free on:
-- **GitHub Pages**
-- **Netlify**
-- **Vercel**
-- **Cloudflare Pages**
+1. Open the website.
+2. Select the Python version you want.
+3. Click **Download**.
+4. You will be redirected to the official Python download page.
 
-### Technologies
+No installation or configuration is required.
+
+---
+
+## 💻 Technologies
 
 - HTML5
-- CSS3 (with modern animations)
+- CSS3
 - Vanilla JavaScript
-
-### License
-
-This project is open source. Feel free to use, modify, and distribute it.
+- Font Awesome
+- Google Fonts
 
 ---
 
-**Made with ❤️ for Python developers**
+## 📂 Project Structure
 
-# Site
+```
+PyLoader/
+├── index.html
+├── screenshot.png
+├── README.md
+└── LICENSE
+```
 
-https://azikerkinov07-cell.github.io/PyLoader
+---
+
+## 📸 Preview
+
+Replace this image with a real screenshot of your website.
+
+![Website Screenshot](screenshot.png)
+
+---
+
+## 🔗 Official Website
+
+All download links redirect to the official Python website:
+
+https://www.python.org/downloads/
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License**.
+
+See the `LICENSE` file for more information.
+
+---
+
+## ❤️ Contributing
+
+Contributions, suggestions, and improvements are welcome.
+
+If you find a bug or have an idea for a new feature, feel free to open an issue or submit a pull request.
+
+---
+
+## ⭐ Support
+
+If you like this project, consider giving it a ⭐ on GitHub.
+
+It helps others discover the project.
+
+---
+
+Made with ❤️ for the Python community.
