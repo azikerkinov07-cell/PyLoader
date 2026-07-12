@@ -3,19 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="PyLoader — Clean aggregator of official Python releases (3.5 to 3.14). Direct downloads, OS auto-detection, one-click install commands.">
+    <meta name="keywords" content="python download, python versions, pyenv, python installer, python 3.14">
     <title>PyLoader - Download Python</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap');
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
             font-family: 'Inter', sans-serif;
             background: #0a0a0a;
             color: #e0e0e0;
         }
-
         nav {
             position: fixed;
             top: 0; left: 0; right: 0;
@@ -25,39 +24,33 @@
             text-align: center;
             z-index: 1000;
         }
-
         .logo {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 2.6rem;
             font-weight: 700;
         }
         .logo span { color: #00ff9d; }
-
         .hero {
             text-align: center;
             padding: 160px 20px 80px;
         }
-
         .hero h1 {
             font-size: 4.2rem;
             font-family: 'Space Grotesk', sans-serif;
             margin-bottom: 15px;
         }
-
         .hero p {
             font-size: 1.5rem;
             opacity: 0.8;
         }
-
         .version-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
             gap: 2.2rem;
             max-width: 1300px;
             margin: 0 auto;
             padding: 0 20px 80px;
         }
-
         .version-card {
             background: #111;
             padding: 45px 30px;
@@ -66,23 +59,41 @@
             border: 1px solid #222;
             transition: all 0.4s ease;
         }
-
         .version-card:hover {
             transform: translateY(-20px);
             border-color: #00ff9d;
             box-shadow: 0 30px 60px rgba(0, 255, 157, 0.15);
         }
-
         .version {
             font-size: 3rem;
             font-weight: 700;
             color: #00ff9d;
             margin: 15px 0;
         }
-
+        .os-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin: 25px 0;
+        }
+        .os-btn {
+            padding: 10px 20px;
+            background: #222;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+        .os-btn.active, .os-btn:hover {
+            background: #00ff9d;
+            color: black;
+        }
         .download-link {
             display: inline-block;
-            margin-top: 25px;
+            margin-top: 15px;
             padding: 16px 40px;
             background: #00ff9d;
             color: black;
@@ -92,61 +103,152 @@
             font-size: 1.1rem;
             transition: 0.3s;
         }
-
         .download-link:hover {
             transform: scale(1.08);
         }
-
+        .copy-btn {
+            padding: 8px 16px;
+            background: #333;
+            color: #0f0;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin: 8px 4px;
+        }
         footer {
             text-align: center;
             padding: 60px 20px;
             color: #555;
             font-size: 0.95rem;
         }
+        .detected {
+            font-size: 1.1rem;
+            margin: 15px 0;
+            color: #00ff9d;
+        }
     </style>
 </head>
 <body>
-
     <nav>
         <div class="logo">PyLoader<span>.</span></div>
     </nav>
-
     <div class="hero">
         <h1>Download Python</h1>
-        <p>Any version from 3.5 to 3.14.6</p>
+        <p>All versions from 3.5 to 3.14 • Direct links • One-click commands</p>
     </div>
-
     <div class="version-grid" id="versionGrid"></div>
-
     <footer>
-        PyLoader © 2026 • All links lead to the official Python website
+        PyLoader © 2026 • All links point to the official python.org • MIT License
     </footer>
 
     <script>
-        const versions = [
-            "3.14.6", "3.13.4", "3.12.10", "3.11.12", "3.10.16",
-            "3.9.21", "3.8.20", "3.7.17", "3.6.15", "3.5.10"
+        const versionsData = [
+            { ver: "3.14.6", slug: "3146" },
+            { ver: "3.13.4", slug: "3134" },
+            { ver: "3.12.10", slug: "31210" },
+            { ver: "3.11.12", slug: "31112" },
+            { ver: "3.10.16", slug: "31016" },
+            { ver: "3.9.21", slug: "3921" },
+            { ver: "3.8.20", slug: "3820" },
+            { ver: "3.7.17", slug: "3717" },
+            { ver: "3.6.15", slug: "3615" },
+            { ver: "3.5.10", slug: "3510" }
         ];
+
+        function detectOS() {
+            const ua = navigator.userAgent;
+            if (ua.indexOf('Win') !== -1) return 'win';
+            if (ua.indexOf('Mac') !== -1) return 'mac';
+            if (ua.indexOf('Linux') !== -1) return 'linux';
+            return 'win';
+        }
+
+        function getDownloadUrl(ver, slug, os) {
+            const base = `https://www.python.org/ftp/python/${ver}/`;
+            if (os === 'win') return `${base}python-${ver}-amd64.exe`;
+            if (os === 'mac') return `${base}python-${ver}-macos11.pkg`;
+            return `https://www.python.org/downloads/release/python-${slug}/`;
+        }
+
+        function getInstallCommand(ver, os) {
+            if (os === 'win') return `winget install Python.Python.${ver.replace('.', '')}`;
+            if (os === 'mac') return `brew install python@${ver}`;
+            return `pyenv install ${ver}`;
+        }
 
         function createCards() {
             const container = document.getElementById('versionGrid');
             container.innerHTML = '';
+            const detectedOS = detectOS();
 
-            versions.forEach(ver => {
+            versionsData.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'version-card';
+
+                const url = getDownloadUrl(item.ver, item.slug, detectedOS);
+                const cmd = getInstallCommand(item.ver, detectedOS);
+
                 card.innerHTML = `
                     <h3 style="font-size: 1.6rem; opacity: 0.9;">Python</h3>
-                    <div class="version">${ver}</div>
-                    <a href="https://www.python.org/downloads/release/python-${ver.replace(/\./g, '')}/"
-                       target="_blank"
-                       class="download-link">
-                        <i class="fas fa-download"></i> Download
+                    <div class="version">${item.ver}</div>
+                    <div class="detected">Detected OS: ${detectedOS === 'win' ? 'Windows' : detectedOS === 'mac' ? 'macOS' : 'Linux'}</div>
+                    
+                    <div class="os-buttons">
+                        <button onclick="switchOS(this, '${item.ver}', '${item.slug}')" class="os-btn ${detectedOS==='win'?'active':''}" data-os="win">Windows</button>
+                        <button onclick="switchOS(this, '${item.ver}', '${item.slug}')" class="os-btn ${detectedOS==='mac'?'active':''}" data-os="mac">macOS</button>
+                        <button onclick="switchOS(this, '${item.ver}', '${item.slug}')" class="os-btn" data-os="linux">Linux</button>
+                    </div>
+
+                    <a href="${url}" target="_blank" class="download-link">
+                        <i class="fas fa-download"></i> Download (${detectedOS.toUpperCase()})
                     </a>
+                    
+                    <div style="margin-top: 20px;">
+                        <button onclick="copyCommand('${cmd}')" class="copy-btn">
+                            <i class="fas fa-copy"></i> Copy command
+                        </button>
+                        <span style="font-size:0.85rem; opacity:0.7;">${cmd}</span>
+                    </div>
                 `;
                 container.appendChild(card);
             });
         }
+
+        window.switchOS = function(btn, ver, slug) {
+            const card = btn.closest('.version-card');
+            const os = btn.getAttribute('data-os');
+            
+            card.querySelectorAll('.os-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            const url = getDownloadUrl(ver, slug, os);
+            const downloadLink = card.querySelector('.download-link');
+            downloadLink.href = url;
+            downloadLink.innerHTML = `<i class="fas fa-download"></i> Download (${os.toUpperCase()})`;
+            
+            const cmd = getInstallCommand(ver, os);
+            const cmdSpan = card.querySelector('span');
+            cmdSpan.textContent = cmd;
+        };
+
+        window.copyCommand = function(cmd) {
+            navigator.clipboard.writeText(cmd).then(() => {
+                const notif = document.createElement('div');
+                notif.textContent = '✅ Copied!';
+                notif.style.position = 'fixed';
+                notif.style.bottom = '20px';
+                notif.style.left = '50%';
+                notif.style.transform = 'translateX(-50%)';
+                notif.style.background = '#00ff9d';
+                notif.style.color = '#000';
+                notif.style.padding = '12px 24px';
+                notif.style.borderRadius = '50px';
+                notif.style.zIndex = '10000';
+                document.body.appendChild(notif);
+                setTimeout(() => notif.remove(), 2000);
+            });
+        };
 
         window.onload = createCards;
     </script>
